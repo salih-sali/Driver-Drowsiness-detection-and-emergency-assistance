@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Responsive Registration Form | CodingLab</title>
+    <link rel="stylesheet" href="sampl.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Function to handle form submission
+        function registerForm(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get form inputs
+            let fullName = document.getElementById("fullName").value;
+            let bloodGroup = document.getElementById("bloodGroup").value;
+            let doctorConsulted = document.getElementById("doctorConsulted").value;
+            let doctorContact = document.getElementById("doctorContact").value;
+            let clinicName = document.getElementById("clinicName").value;
+            let lastBloodDonation = document.getElementById("lastBloodDonation").value;
+            let heartPatient = document.getElementById("heartPatient").value;
+            let diabetic = document.getElementById("diabetic").value;
+            let highBP = document.getElementById("highBP").value;
+            let dialysis = document.getElementById("dialysis").value;
+            let allergicMedicines = document.getElementById("allergicMedicines").value;
+            let otherDiseases = document.getElementById("otherDiseases").value;
+            let regularMedicine = document.getElementById("regularMedicine").value;
+            let surgeryDescription = document.getElementById("surgeryDescription").value;
+
+            // Create the data object
+            const phoneU = localStorage.getItem("phone");
+            let data = {
+                phone: phoneU,
+                doctorName: doctorConsulted,
+                doctorNum: doctorContact,
+                clinicName: clinicName,
+                bloodGroup: bloodGroup,
+                isHeartPatient: heartPatient,
+                isDiabeticPatient: diabetic,
+                isBpPatient: highBP,
+                allergicToMedication: allergicMedicines,
+                isDialisysPatient: dialysis,
+                lastBloodDonation: lastBloodDonation,
+                otherDisease: otherDiseases,
+                regularMedication: regularMedicine,
+                surgery: surgeryDescription
+            };
+
+
+            fetch('http://localhost:3001/update-medical', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(responseData => {
+                    alert(responseData.message);
+                    Object.keys(data).forEach(key => {
+                        const value = data[key];
+                        localStorage.setItem(key, value);
+                    });
+                    window.location.href = "nav.html";
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+
+                });
+                localStorage.setItem('m_up', '1');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">Medical History</div>
+        <div class="content">
+            <form onsubmit="registerForm(event)">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Full Name</span>
+                        <input id="fullName" type="text" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Blood Group</span>
+                        <input id="bloodGroup" type="text" placeholder="Enter your blood group" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Doctor consulted</span>
+                        <input id="doctorConsulted" type="text" placeholder="Enter the consulting doctor name" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Doctor's Contact Number</span>
+                        <input id="doctorContact" type="number" placeholder="Enter the doctor's contact number"
+                            required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Clinic Name</span>
+                        <input id="clinicName" type="text" placeholder="Enter the clinic of the doctor" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Last blood donation</span>
+                        <input id="lastBloodDonation" type="text" placeholder="Mention the month" required>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="title">Medical Condition</div>
+                    <div class="content">
+                        <div class="user-details">
+                            <div class="input-box">
+                                <span class="details">Are you a heart patient?</span>
+                                <input id="heartPatient" type="text" placeholder="Type yes/no" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Are you diabetic?</span>
+                                <input id="diabetic" type="text" placeholder="Type yes/no" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Do you have high BP?</span>
+                                <input id="highBP" type="text" placeholder="Type yes/no" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Are you undergoing dialysis?</span>
+                                <input id="dialysis" type="text" placeholder="Type yes/no" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Allergic to any medicines?</span>
+                                <input id="allergicMedicines" type="text"
+                                    placeholder="If yes, please mention the medicine" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Any other diseases?</span>
+                                <input id="otherDiseases" type="text" placeholder="If yes, please mention the disease"
+                                    required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Any regular medicine intake?</span>
+                                <input id="regularMedicine" type="text"
+                                    placeholder="If yes, please mention the medicine" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Undertaken any surgery?</span>
+                                <input id="surgeryDescription" type="text"
+                                    placeholder="If yes, please give a brief description" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button">
+                    <input type="submit" value="Register">
+                </div>
+
+                <div class="button">
+                    <a href="nav.html">
+                        <input type="button" value="Go back">
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(176, 247, 247);
+  }
+
+  canvas {
+    
+    position: absolute;
+  }
+
+  #video{
+ display: none;
+  }
+
+  #hospitalList,#policeInfo {
+    margin:0 40px;
+    height: 500px;
+    overflow: auto;
+    
+  }
+
+  .contact-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #26458f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .contact-button:hover {
+    background-color: #031ea8;
+  }
+
+
+
+
